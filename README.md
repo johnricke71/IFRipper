@@ -1,0 +1,2 @@
+# IFRipper
+Screen Scraping Project
