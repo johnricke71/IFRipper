@@ -1,0 +1,13 @@
+/**/packages/**/*
+/**/bin/*
+/**/obj/*
+/**/node_modules/*
+launch.json
+*.suo
+*.user
+.vs
+.vs/config/applicationhost.config
+*.orig
+/.nuget/-ApiKey
+.idea/
+*.Cache
