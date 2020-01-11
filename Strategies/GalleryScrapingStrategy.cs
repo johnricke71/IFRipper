@@ -85,7 +85,7 @@ namespace IFRipper.Strategies
 			var fileInfo = new FileInfo(absoluteFilename);
 			if (fileInfo.Length == 0)
 			{
-				return false;
+				return true;
 			}
 
 			return true;
