@@ -54,7 +54,8 @@ namespace IFRipper.Strategies
 
 				var absoluteFilename = GenerateAbsoluteFilePath(options, userName, categoryName, galleryName, fileName);
 
-				if (FileExistsOrIsZeroLength(absoluteFilename))
+				if (!FileExists(absoluteFilename) ||
+					FileIsZeroLength(absoluteFilename))
 				{
 					Console.Write(".");
 					using (WebClient client = new WebClient())
@@ -75,11 +76,16 @@ namespace IFRipper.Strategies
 			}
 		}
 
-		private bool FileExistsOrIsZeroLength(string absoluteFilename)
+		private bool FileExists(string absoluteFilename)
+		{
+			return File.Exists(absoluteFilename);			
+		}
+
+		private bool FileIsZeroLength(string absoluteFilename)
 		{
 			if (!File.Exists(absoluteFilename))
 			{
-				return false;
+				return true;
 			}
 
 			var fileInfo = new FileInfo(absoluteFilename);
@@ -88,7 +94,7 @@ namespace IFRipper.Strategies
 				return true;
 			}
 
-			return true;
+			return false;
 		}
 
 		private string GenerateAbsoluteFilePath(Options options, string userName, string categoryName, string galleryName, string fileName)
