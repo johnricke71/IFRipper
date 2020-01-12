@@ -21,7 +21,7 @@ namespace IFRipper.Strategies
 				categoryName = scrapingService.Options.Category;
 			}
 
-			Console.Write($"GALLERY {userName} / {categoryName} / {galleryName}");
+			Console.Write($"GALLERY {userName} / {categoryName} / {galleryName} ");
 			HtmlDocument htmlDoc = OpenDocument(url);
 
 			var pictures = (IEnumerable<HtmlNode>)htmlDoc.DocumentNode.SelectNodes("//div[@id='gallery']//a");
