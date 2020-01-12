@@ -15,12 +15,12 @@ namespace IFRipper
 
 		public void ScrapeUrl(string url, string userName, string categoryName, string galleryName)
 		{
-			//if (Options.Exclusions != null &&
-			//	Options.Exclusions.Any(p => url.Contains(p)))
-			//{
-			//	Console.WriteLine($"Skipped: {url}");
-			//	return;
-			//}
+			if (Options.Exclusions != null &&
+				Options.Exclusions.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Any(p => url.Contains(p)))
+			{
+				Console.WriteLine($"Skipped: {url}");
+				return;
+			}
 
 			ScrapingStrategyBase scrapingStrategy = null;
 
