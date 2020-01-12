@@ -67,7 +67,7 @@ namespace IFRipper.Strategies
 				if (!FileExists(absoluteFilename) ||
 					FileIsZeroLength(absoluteFilename))
 				{
-					Console.Write(".");
+					Console.Write("d");
 					using (WebClient client = new WebClient())
 					{
 						client.DownloadFile(new Uri(imageUrl), absoluteFilename);
@@ -75,14 +75,12 @@ namespace IFRipper.Strategies
 				}
 				else
 				{
-					Console.Write("x");
+					Console.Write("s");
 				}
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine();
-				Console.WriteLine(ex.Message);
-				Console.WriteLine(ex.StackTrace);
+				Console.Write("x");				
 			}
 		}
 
