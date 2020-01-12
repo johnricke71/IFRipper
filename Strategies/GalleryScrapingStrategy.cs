@@ -11,6 +11,16 @@ namespace IFRipper.Strategies
 	{
 		public override void ScrapeUrl(ScrapingService scrapingService, string url, string userName, string categoryName, string galleryName)
 		{
+			if (!string.IsNullOrEmpty(scrapingService.Options.Name))
+			{
+				userName = scrapingService.Options.Name;
+			}
+
+			if (!string.IsNullOrEmpty(scrapingService.Options.Category))
+			{
+				categoryName = scrapingService.Options.Category;
+			}
+
 			Console.Write($"GALLERY {userName} / {categoryName} / {galleryName}");
 			HtmlDocument htmlDoc = OpenDocument(url);
 
