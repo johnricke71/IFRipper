@@ -18,7 +18,13 @@ namespace IFRipper
 		[Option('g', Required = false, Default = false, HelpText = "Suppress the Gallery folder level creation.")]
 		public bool SuppressGalleryCreation { get; set; }
 
-		[Value(1, Min = 1, Max = 3)]
-		public IEnumerable<string> Exclusions { get; set; }
+		[Option('n', Required = false, HelpText = "Override the Name level.")]
+		public string Name { get; set; }
+
+		[Option('c', Required = false, HelpText = "Override the Category level.")]
+		public string Category { get; set; }
+
+		[Option('x', Required = false, HelpText = "Comma separated list of exclusions.")]
+		public string Exclusions { get; set; }
 	}
 }
