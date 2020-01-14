@@ -11,7 +11,17 @@ namespace IFRipper.Strategies
 	{
 		public override void ScrapeUrl(ScrapingService scrapingService, string url, string userName, string categoryName, string galleryName)
 		{
-			Console.Write($"GALLERY {userName} / {categoryName} / {galleryName}");
+			if (!string.IsNullOrEmpty(scrapingService.Options.Name))
+			{
+				userName = scrapingService.Options.Name;
+			}
+
+			if (!string.IsNullOrEmpty(scrapingService.Options.Category))
+			{
+				categoryName = scrapingService.Options.Category;
+			}
+
+			Console.Write($"GALLERY {userName} / {categoryName} / {galleryName} ");
 			HtmlDocument htmlDoc = OpenDocument(url);
 
 			var pictures = (IEnumerable<HtmlNode>)htmlDoc.DocumentNode.SelectNodes("//div[@id='gallery']//a");
@@ -54,9 +64,10 @@ namespace IFRipper.Strategies
 
 				var absoluteFilename = GenerateAbsoluteFilePath(options, userName, categoryName, galleryName, fileName);
 
-				if (FileExistsOrIsZeroLength(absoluteFilename))
+				if (!FileExists(absoluteFilename) ||
+					FileIsZeroLength(absoluteFilename))
 				{
-					Console.Write(".");
+					Console.Write("d");
 					using (WebClient client = new WebClient())
 					{
 						client.DownloadFile(new Uri(imageUrl), absoluteFilename);
@@ -64,22 +75,25 @@ namespace IFRipper.Strategies
 				}
 				else
 				{
-					Console.Write("x");
+					Console.Write("s");
 				}
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine();
-				Console.WriteLine(ex.Message);
-				Console.WriteLine(ex.StackTrace);
+				Console.Write("x");				
 			}
 		}
 
-		private bool FileExistsOrIsZeroLength(string absoluteFilename)
+		private bool FileExists(string absoluteFilename)
+		{
+			return File.Exists(absoluteFilename);			
+		}
+
+		private bool FileIsZeroLength(string absoluteFilename)
 		{
 			if (!File.Exists(absoluteFilename))
 			{
-				return false;
+				return true;
 			}
 
 			var fileInfo = new FileInfo(absoluteFilename);
@@ -88,7 +102,7 @@ namespace IFRipper.Strategies
 				return true;
 			}
 
-			return true;
+			return false;
 		}
 
 		private string GenerateAbsoluteFilePath(Options options, string userName, string categoryName, string galleryName, string fileName)
