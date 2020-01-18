@@ -28,7 +28,7 @@ namespace IFRipper
 			{
 				scrapingStrategy = new UserScrapingStrategy();
 			}
-			else if (url.Contains("organizer"))
+			else if (url.Contains("organizer") || url.Contains("folderid=-1"))
 			{
 				scrapingStrategy = new OrganizerScrapingStrategy();
 			}

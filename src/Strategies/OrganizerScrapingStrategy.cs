@@ -51,7 +51,7 @@ namespace IFRipper.Strategies
 					GetResponseUrl(node.Attributes["href"].Value) :
 					GetResponseUrl(BASE_URL + "/" + node.Attributes["href"].Value);
 
-				scrapingService.ScrapeUrl(responseUrl + "?view=2", userName, categoryName, node.InnerText.Replace("\t", string.Empty).Replace("\n", string.Empty));
+				scrapingService.ScrapeUrl(responseUrl + "?view=2", userName, categoryName, node.InnerText.Replace("\t", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty));
 			}
 		}
 
