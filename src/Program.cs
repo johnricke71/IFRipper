@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using CommandLine;
 
 namespace IFRipper
@@ -9,6 +10,9 @@ namespace IFRipper
 	{
 		private static void Main(string[] args)
 		{
+			ServicePointManager.Expect100Continue = true;
+			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
 			var result = CommandLine.Parser.Default.ParseArguments<Options>(args).MapResult(
 				(opts) => RunOptionsAndReturnExitCode(opts), 
 				errs => HandleParseError(errs)); 
